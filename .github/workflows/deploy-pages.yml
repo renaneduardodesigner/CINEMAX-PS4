@@ -3,13 +3,16 @@ on:
   push:
     branches: [main, "release/**"]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -37,6 +40,16 @@ jobs:
           test -s service-worker.js
           grep -q 'assets/app.js' index.html
           grep -q 'assets/styles.css' index.html
+      - name: Assemble clean GitHub Pages artifact
+        run: |
+          rm -rf _site
+          mkdir -p _site/assets
+          cp index.html manifest.webmanifest service-worker.js .nojekyll _site/
+          cp assets/app.js assets/styles.css assets/icon.svg _site/assets/
+          test -s _site/index.html
+          test -s _site/assets/app.js
+          test -s _site/assets/styles.css
+
   deploy:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release/cinemax-0.4-hardening'
     needs: validate
@@ -47,14 +60,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Configure Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      - name: Upload site
+      - name: Assemble published website
+        run: |
+          mkdir -p _site/assets
+          cp index.html manifest.webmanifest service-worker.js .nojekyll _site/
+          cp assets/app.js assets/styles.css assets/icon.svg _site/assets/
+          test -s _site/index.html
+      - name: Upload website artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
-      - name: Deploy
+          path: _site
+      - name: Publish website
         id: deployment
         uses: actions/deploy-pages@v4
