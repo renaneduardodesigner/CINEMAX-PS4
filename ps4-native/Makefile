@@ -13,6 +13,8 @@ OBJS        := $(patsubst $(PROJDIR)/%.cpp,$(INTDIR)/%.o,$(CXXFILES))
 CXXFLAGS    := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysroot $(TOOLCHAIN) -isystem $(TOOLCHAIN)/include -isystem $(TOOLCHAIN)/include/c++/v1
 LDFLAGS     := -m elf_x86_64 -pie --script $(TOOLCHAIN)/link.x --eh-frame-hdr -L$(TOOLCHAIN)/lib $(LIBS) $(TOOLCHAIN)/lib/crt1.o
 CDIR        := linux
+
+.PHONY: all clean
 all: $(CONTENT_ID).pkg
 
 sce_sys/icon0.png:
@@ -38,12 +40,18 @@ $(INTDIR):
 $(INTDIR)/%.o: $(PROJDIR)/%.cpp | $(INTDIR)
 	clang++ $(CXXFLAGS) -o $@ $<
 
+# The GP4 manifest expects the executable at the package root as eboot.bin.
+# Do not leave it only in the intermediate build directory.
 eboot.bin: $(OBJS)
 	ld.lld $(OBJS) -o $(INTDIR)/cinemax.elf $(LDFLAGS)
-	$(TOOLCHAIN)/bin/$(CDIR)/create-eboot -in=$(INTDIR)/cinemax.elf -out=$(INTDIR)/cinemax.oelf --paid 0x3800000000000011
+	$(TOOLCHAIN)/bin/$(CDIR)/create-eboot -in=$(INTDIR)/cinemax.elf -out=$@ --paid 0x3800000000000011
+	test -s $@
 
 $(CONTENT_ID).pkg: pkg.gp4 eboot.bin sce_sys/param.sfo sce_sys/icon0.png
+	test -s eboot.bin
+	test -s sce_sys/param.sfo
+	test -s sce_sys/icon0.png
 	$(TOOLCHAIN)/bin/$(CDIR)/PkgTool.Core pkg_build $< .
 
 clean:
-	rm -rf $(INTDIR) eboot.bin pkg.gp4 $(CONTENT_ID).pkg sce_sys/param.sfo sce_sys/icon0.png
+	rm -rf $(INTDIR) eboot.bin $(CONTENT_ID).pkg sce_sys/param.sfo sce_sys/icon0.png
