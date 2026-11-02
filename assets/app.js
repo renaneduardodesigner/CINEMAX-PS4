@@ -56,4 +56,5 @@ $('#clear-local').addEventListener('click',()=>{if(confirm('Apagar favoritos, hi
 
 if(state.token){$('#tmdb-token').value=state.token;api('/configuration').then(()=>{connectStatus('Conectado ao TMDb. Catálogo online ativado.',true);loadHome();loadGenres('movie');loadGenres('tv')}).catch(e=>{state.token='';store.set('token','');connectStatus(e.message);renderDemoHome()})}else{renderDemoHome();connectStatus('Modo demonstração');}
 loadGenres('movie');loadGenres('tv');
+if('serviceWorker' in navigator && location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}
 })();
