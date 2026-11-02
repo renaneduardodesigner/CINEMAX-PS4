@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080a10">
+<meta name="description" content="CINEMAX-PS4 — catálogo de filmes e séries com navegação para TV e controle.">
+<title>CINEMAX — Filmes & Séries</title><link rel="icon" href="assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+<a class="logo" href="#inicio" aria-label="CINEMAX início"><span class="logo-mark">C</span><span>CINE<span>MAX</span></span></a>
+<p class="nav-label">MENU PRINCIPAL</p>
+<nav class="main-nav" aria-label="Navegação principal">
+<button class="nav-item active" data-page="inicio"><span>⌂</span> Início</button>
+<button class="nav-item" data-page="filmes"><span>▣</span> Filmes</button>
+<button class="nav-item" data-page="series"><span>▤</span> Séries</button>
+<button class="nav-item" data-page="favoritos"><span>♡</span> Minha lista</button>
+<button class="nav-item" data-page="historico"><span>◷</span> Vistos recentemente</button>
+</nav>
+<p class="nav-label nav-label-bottom">PREFERÊNCIAS</p>
+<nav class="main-nav"><button class="nav-item" data-page="configuracoes"><span>⚙</span> Configurações</button></nav>
+<div class="sidebar-bottom"><span class="status-dot"></span><span id="connection-label">Modo demonstração</span><small>VERSÃO 0.2 · EM DESENVOLVIMENTO</small></div>
+</aside>
+<main class="main-area">
+<header class="topbar"><button class="mobile-menu" id="menu-toggle" aria-label="Abrir menu">☰</button><div class="breadcrumb" id="breadcrumb">Descubra <b>/</b> Início</div>
+<form class="global-search" id="search-form"><span>⌕</span><input id="search-input" type="search" placeholder="Buscar filmes, séries..." autocomplete="off" aria-label="Buscar filmes e séries"><kbd>ENTER</kbd></form>
+<button class="avatar" data-page="configuracoes" aria-label="Configurações">C</button></header>
+<div class="content" id="content">
+<section class="page active" id="page-inicio">
+<div class="hero" id="hero"><div class="hero-shade"></div><div class="hero-copy"><span class="eyebrow"><i></i> SEU CINEMA COMEÇA AQUI</span><h1>Grandes histórias.<br><em>Uma só tela.</em></h1><p>Explore filmes e séries, descubra novidades e organize tudo o que deseja assistir.</p><div class="hero-actions"><button class="btn btn-primary" id="hero-explore">Explorar catálogo <span>→</span></button><button class="btn btn-ghost" id="hero-info">Como funciona</button></div></div><div class="hero-index"><span>01</span><i></i><span>DESTAQUE</span></div></div>
+<div class="welcome-row"><div><p class="eyebrow">SELEÇÃO CINEMAX</p><h2>O que vamos assistir?</h2></div><span class="live-tag"><i></i> CATÁLOGO ATUALIZÁVEL</span></div>
+<div class="shelf" id="trending-shelf"><div class="shelf-head"><div><h3>Em alta</h3><p>Os títulos que estão chamando atenção</p></div><button class="text-link" data-page="filmes">Ver catálogo <span>→</span></button></div><div class="card-row" id="trending-list"></div></div>
+<div class="shelf"><div class="shelf-head"><div><h3>Filmes populares</h3><p>Histórias para sua próxima sessão</p></div><button class="text-link" data-page="filmes">Ver todos <span>→</span></button></div><div class="card-row" id="popular-list"></div></div>
+<div class="shelf"><div class="shelf-head"><div><h3>Séries populares</h3><p>Encontre sua próxima maratona</p></div><button class="text-link" data-page="series">Ver todas <span>→</span></button></div><div class="card-row" id="series-list"></div></div>
+</section>
+<section class="page" id="page-filmes"><div class="page-heading"><div><p class="eyebrow">EXPLORE</p><h1>Filmes</h1><p>Descubra histórias de todos os gêneros.</p></div></div><div class="toolbar"><div class="filter-pills" id="movie-genres"><button class="pill selected" data-genre="">Todos</button></div><select id="movie-sort" aria-label="Ordenar filmes"><option value="popularity.desc">Mais populares</option><option value="vote_average.desc">Melhor avaliados</option><option value="release_date.desc">Lançamentos</option></select></div><div class="poster-grid" id="movies-grid"></div><button class="load-more" id="movies-more">Carregar mais</button></section>
+<section class="page" id="page-series"><div class="page-heading"><div><p class="eyebrow">EXPLORE</p><h1>Séries</h1><p>Novas temporadas, novos mundos.</p></div></div><div class="toolbar"><div class="filter-pills" id="series-genres"><button class="pill selected" data-genre="">Todas</button></div><select id="series-sort" aria-label="Ordenar séries"><option value="popularity.desc">Mais populares</option><option value="vote_average.desc">Melhor avaliadas</option><option value="first_air_date.desc">Lançamentos</option></select></div><div class="poster-grid" id="series-grid"></div><button class="load-more" id="series-more">Carregar mais</button></section>
+<section class="page" id="page-favoritos"><div class="page-heading"><div><p class="eyebrow">GUARDADOS</p><h1>Minha lista</h1><p>Seus títulos favoritos em um só lugar.</p></div></div><div class="poster-grid" id="favorites-grid"></div><div class="empty-state" id="favorites-empty"><span>♡</span><h3>Sua lista começa aqui</h3><p>Abra os detalhes de um título e toque em “Adicionar à lista”.</p></div></section>
+<section class="page" id="page-historico"><div class="page-heading"><div><p class="eyebrow">CONTINUE DE ONDE PAROU</p><h1>Vistos recentemente</h1><p>Histórico dos títulos que você abriu.</p></div><button class="btn btn-ghost" id="clear-history">Limpar histórico</button></div><div class="poster-grid" id="history-grid"></div><div class="empty-state" id="history-empty"><span>◷</span><h3>Nenhum título por aqui ainda</h3><p>Quando abrir um título, ele aparecerá nesta área.</p></div></section>
+<section class="page" id="page-busca"><div class="page-heading"><div><p class="eyebrow">RESULTADOS</p><h1 id="search-title">Buscar</h1><p id="search-subtitle">Pesquise no catálogo.</p></div></div><div class="poster-grid" id="search-grid"></div><div class="empty-state" id="search-empty"><span>⌕</span><h3>Pesquise um título</h3><p>Digite o nome de um filme ou série na barra superior.</p></div></section>
+<section class="page" id="page-configuracoes"><div class="page-heading"><div><p class="eyebrow">PERSONALIZE</p><h1>Configurações</h1><p>Configure o catálogo e a experiência CINEMAX.</p></div></div>
+<div class="settings-layout"><article class="settings-card"><div class="settings-icon">✦</div><div><h3>Conectar catálogo TMDb</h3><p>O TMDb fornece informações, capas e pesquisa de filmes e séries. A chave fica salva somente neste navegador.</p></div><label class="field-label" for="tmdb-token">Token de leitura da API (Bearer)</label><input id="tmdb-token" class="field" type="password" placeholder="Cole seu token de leitura aqui" autocomplete="off"><div class="settings-actions"><button class="btn btn-primary" id="save-token">Salvar e conectar</button><button class="btn btn-ghost" id="remove-token">Remover</button></div><p class="settings-status" id="tmdb-status">Sem conexão. O aplicativo está usando o catálogo de demonstração.</p><a class="external-link" href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">Onde obter uma chave do TMDb ↗</a></article>
+<article class="settings-card"><div class="settings-icon">⌘</div><div><h3>Controle e navegação</h3><p>Interface preparada para navegação por teclado e controle: setas para mover o foco, Enter para selecionar e Esc para fechar janelas.</p></div><div class="setting-line"><span>Movimento reduzido</span><label class="switch"><input type="checkbox" id="reduced-motion"><i></i></label></div><div class="setting-line"><span>Região de catálogo</span><select id="region-select"><option value="BR">Brasil (BR)</option><option value="US">Estados Unidos (US)</option><option value="PT">Portugal (PT)</option></select></div></article>
+<article class="settings-card"><div class="settings-icon">◎</div><div><h3>Integração Seekee</h3><p>A conexão direta depende de uma API oficial e de autorização do serviço. Por enquanto, o CINEMAX mantém um conector preparado, sem acessar contas ou serviços privados.</p><span class="integration-status"><i></i> Aguardando documentação oficial</span><a class="external-link" href="https://apps.apple.com/br/app/seekee-filmes-e-s%C3%A9ries/id6764246815" target="_blank" rel="noopener">Consultar descrição pública do Seekee ↗</a></article>
+<article class="settings-card"><div class="settings-icon">▤</div><div><h3>Dados locais</h3><p>Favoritos, histórico e preferências são guardados neste dispositivo. Limpar os dados do navegador pode apagá-los.</p><button class="btn btn-ghost" id="clear-local">Apagar dados locais</button></article></div>
+<div class="about-footer">CINEMAX-PS4 <span>·</span> Protótipo em desenvolvimento <span>·</span> Dados de filmes via TMDb quando conectado. Não endossado ou certificado pelo TMDb.</div>
+</section>
+</div>
+</main>
+</div>
+<dialog id="detail-dialog" class="detail-dialog"><button class="dialog-close" id="dialog-close" aria-label="Fechar">×</button><div class="detail-backdrop" id="detail-backdrop"></div><div class="detail-content"><p class="eyebrow" id="detail-kind">DETALHES</p><h2 id="detail-title">Título</h2><div class="detail-meta" id="detail-meta"></div><p class="detail-overview" id="detail-overview"></p><div class="detail-actions"><button class="btn btn-primary" id="detail-favorite">♡ Adicionar à lista</button><a class="btn btn-ghost" id="detail-trailer" href="#" target="_blank" rel="noopener" hidden>Ver trailer ↗</a></div><div class="provider-box" id="provider-box"></div></div></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/app.js"></script>
+</body></html>
