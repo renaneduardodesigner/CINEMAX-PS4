@@ -52,7 +52,7 @@ jobs:
               set -eu
               : "${OO_PS4_TOOLCHAIN:?OO_PS4_TOOLCHAIN is not set in the OpenOrbis container}"
               test -x "$OO_PS4_TOOLCHAIN/bin/linux/PkgTool.Core"
-              test -x "$OO_PS4_TOOLCHAIN/bin/linux/create-eboot"
+              test -x "$OO_PS4_TOOLCHAIN/bin/linux/create-fself"
               command -v clang++
               command -v ld.lld
               make clean
