@@ -13,7 +13,6 @@ OBJS        := $(patsubst $(PROJDIR)/%.cpp,$(INTDIR)/%.o,$(CXXFILES))
 CXXFLAGS    := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysroot $(TOOLCHAIN) -isystem $(TOOLCHAIN)/include -isystem $(TOOLCHAIN)/include/c++/v1
 LDFLAGS     := -m elf_x86_64 -pie --script $(TOOLCHAIN)/link.x --eh-frame-hdr -L$(TOOLCHAIN)/lib $(LIBS) $(TOOLCHAIN)/lib/crt1.o
 CDIR        := linux
-SDK_SAMPLE_PKG := $(TOOLCHAIN)/samples/hello_world/pkg
 
 .PHONY: all clean check-toolchain
 .DEFAULT_GOAL := all
@@ -30,20 +29,17 @@ check-toolchain:
 sce_sys/icon0.png:
 	python3 scripts/create_icon.py
 
-sce_sys/about/right.sprx:
-	@test -s "$(SDK_SAMPLE_PKG)/sce_sys/about/right.sprx" || (echo "OpenOrbis sample right.sprx is missing" >&2; exit 1)
+sce_sys/about/right.sprx: vendor/right.sprx.b64
 	mkdir -p $(@D)
-	cp "$(SDK_SAMPLE_PKG)/sce_sys/about/right.sprx" $@
+	base64 -d $< > $@
 
-sce_module/libc.prx:
-	@test -s "$(SDK_SAMPLE_PKG)/sce_module/libc.prx" || (echo "OpenOrbis sample libc.prx is missing" >&2; exit 1)
+sce_module/libc.prx: vendor/libc.prx.b64
 	mkdir -p $(@D)
-	cp "$(SDK_SAMPLE_PKG)/sce_module/libc.prx" $@
+	base64 -d $< > $@
 
-sce_module/libSceFios2.prx:
-	@test -s "$(SDK_SAMPLE_PKG)/sce_module/libSceFios2.prx" || (echo "OpenOrbis sample libSceFios2.prx is missing" >&2; exit 1)
+sce_module/libSceFios2.prx: vendor/libSceFios2.prx.b64
 	mkdir -p $(@D)
-	cp "$(SDK_SAMPLE_PKG)/sce_module/libSceFios2.prx" $@
+	base64 -d $< > $@
 
 sce_sys/param.sfo: Makefile
 	mkdir -p sce_sys
