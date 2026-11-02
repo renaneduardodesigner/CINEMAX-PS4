@@ -37,3 +37,14 @@ O projeto não hospeda vídeos, não contorna DRM e não fornece conteúdo sem a
 A interface web e o launcher nativo são componentes separados. O launcher depende dos serviços e APIs disponíveis no runtime/firmware de destino para abrir o navegador do sistema. O catálogo web depende da compatibilidade do navegador, incluindo suporte a APIs JavaScript/CSS, rede e armazenamento local.
 
 Os alvos iniciais são firmware 13.52 e 14.00 em ambientes homebrew compatíveis, mas nenhum deles deve ser marcado como suportado sem teste real. Consulte a matriz em `ps4/COMPATIBILITY.md`.
+
+
+## Edição TV 1.0
+
+A interface suporta `?tv=1`, que ativa um layout de televisão com cartões maiores, foco visual reforçado e navegação espacial entre controles por setas. Enter/X ativa o item focado. O launcher nativo do PS4 solicita a mesma URL com o parâmetro TV.
+
+O projeto `android-tv/` é um aplicativo Android TV separado, baseado em WebView, com launcher Leanback e controles D-pad. Ele carrega a interface publicada; não converte APKs em FPKG e não transforma o sistema PS4 original em Android.
+
+## Limites de reprodução
+
+Não existe player de filmes comerciais incorporado nesta entrega. A reprodução depende de fontes licenciadas e de APIs/SDKs oficiais. Metadados do TMDb não são fontes de vídeo. Serviços com DRM podem não funcionar no PS4 ou em WebView. Seekee permanece sem integração oficial confirmada.

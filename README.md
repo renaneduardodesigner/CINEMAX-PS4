@@ -133,3 +133,24 @@ CINEMAX-PS4/
 O CINEMAX não hospeda, distribui nem desbloqueia filmes ou séries. A reprodução só poderá ser adicionada por meio de fontes legais e autorizadas. A disponibilidade indicada por provedores é informativa e pode mudar conforme a região e o serviço.
 
 **Feito para evoluir, com cuidado em cada detalhe.**
+
+
+## CINEMAX TV Edition — branch `release/cinemax-1.0-tv-experience`
+
+Esta evolução adiciona um modo de interface para televisão, ativado por `?tv=1`, com alvos de foco maiores, navegação espacial pelo controle/teclas direcionais e seleção por Enter/X. O launcher PS4 passa a abrir as rotas internas com o modo TV ativado.
+
+### Aplicativo Android TV
+
+O projeto independente em `android-tv/` é um contêiner Android TV com WebView em tela cheia que carrega a interface CINEMAX publicada. Ele foi preparado para controle remoto/D-pad e para aparecer no launcher de Android TV. O workflow `.github/workflows/build-android-tv.yml` compila um APK de depuração e publica o artefato para instalação manual.
+
+O APK Android TV é destinado ao Android TV for PS4 ou a dispositivos Android TV compatíveis. **Não é um PKG de PS4** e não roda diretamente no sistema original do PS4.
+
+### Reprodução de conteúdo
+
+Esta versão ainda não contém um serviço de vídeo nem um player com catálogo de filmes comerciais. O TMDb continua fornecendo metadados e disponibilidade, não arquivos de vídeo. A reprodução só será habilitada quando houver uma fonte oficial/autorizada, SDK/API documentada e compatibilidade técnica comprovada. Não há promessa de compatibilidade com Seekee ou com DRM de serviços comerciais.
+
+### Endereços de teste
+
+- Web TV: `https://renaneduardodesigner.github.io/CINEMAX-PS4/?tv=1`
+- Android TV: instalar o APK gerado pelo workflow Android TV.
+- PS4: o launcher abre Início, Descobrir ou Minha lista com `tv=1`; o navegador do sistema ainda é necessário nesta arquitetura.

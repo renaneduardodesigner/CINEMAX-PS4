@@ -1,6 +1,8 @@
 (()=>{'use strict';
 const API='https://api.themoviedb.org/3',IMG='https://image.tmdb.org/t/p/';
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s);const qsa=s=>[...document.querySelectorAll(s)];
+const tvMode=new URLSearchParams(location.search).get('tv')==='1';
+if(tvMode)document.documentElement.classList.add('tv-mode');
 const store={get(k,d){try{return JSON.parse(localStorage.getItem('cinemax.'+k))??d}catch{return d}},set(k,v){localStorage.setItem('cinemax.'+k,JSON.stringify(v))}};
 const state={token:store.get('token',''),region:store.get('region','BR'),page:'inicio',moviePage:1,seriesPage:1,movieGenre:'',seriesGenre:'',movieSort:'popularity.desc',seriesSort:'popularity.desc',searchTimer:null,selected:null,cache:new Map(),demo:[
 {id:101,title:'A Última Fronteira',type:'movie',year:'2024',rating:8.1,overview:'Uma jornada por paisagens desconhecidas, onde cada escolha abre um novo caminho.',colors:['#193c55','#a05a45'],genre_ids:[28,12]},
@@ -42,14 +44,23 @@ function toggleFavorite(){const item=state.selected;if(!item)return;let a=favori
 async function search(q){q=q.trim();if(!q)return;setPage('busca');$('#search-title').textContent='“'+q+'”';$('#search-subtitle').textContent='Resultados encontrados no catálogo.';$('#search-grid').innerHTML='<p class="muted" role="status">Pesquisando...</p>';$('#search-empty').hidden=true;try{let items;if(state.token){const d=await api('/search/multi?query='+encodeURIComponent(q)+'&language=pt-BR&include_adult=false');items=(d.results||[]).filter(x=>['movie','tv'].includes(x.media_type)&&x.poster_path);saveCache(items)}else items=state.demo.filter(x=>(x.title+' '+x.overview).toLowerCase().includes(q.toLowerCase()));renderInto('#search-grid',items);$('#search-empty').hidden=items.length>0;if(!items.length)$('#search-subtitle').textContent='Nenhum resultado encontrado. Tente outro termo.'}catch(e){$('#search-grid').innerHTML='';$('#search-empty').hidden=false;notify(e.message)}}
 function connectStatus(msg,ok=false){$('#tmdb-status').textContent=msg;$('#tmdb-status').style.color=ok?'#7bd7ad':'#e5b66c';$('#connection-label').textContent=ok?'TMDb conectado':'Modo demonstração'}
 function saveToken(){const token=$('#tmdb-token').value.trim();if(!token){notify('Cole seu token de leitura primeiro.');return}state.token=token;store.set('token',token);api('/configuration').then(()=>{connectStatus('Conectado ao TMDb. Catálogo e pesquisa online ativados.',true);notify('Catálogo conectado!');loadHome();loadGenres('movie');loadGenres('tv')}).catch(e=>{state.token='';store.set('token','');connectStatus(e.message);notify(e.message)})}
-function arrowFocus(e){if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)||$('#detail-dialog').open)return;const el=document.activeElement;if(!el||!el.matches('button,[href],input,select,[tabindex="0"]'))return;const all=$$('button:not([disabled]),a[href],input,select,[tabindex="0"]').filter(x=>x.offsetParent!==null);const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;let candidates=all.filter(x=>x!==el).map(x=>{const b=x.getBoundingClientRect(),dx=b.left+b.width/2-cx,dy=b.top+b.height/2-cy;return{x,dx,dy}}).filter(o=>e.key==='ArrowLeft'?o.dx< -4:e.key==='ArrowRight'?o.dx>4:e.key==='ArrowUp'?o.dy< -4:o.dy>4);candidates.sort((a,b)=>{const da=Math.hypot(a.dx,a.dy),db=Math.hypot(b.dx,b.dy);return da-db});if(candidates[0]){e.preventDefault();candidates[0].x.focus()}}
-$$('[data-page]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
+function arrowFocus(e){
+ if(!tvMode||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)||$('#detail-dialog').open)return;
+ const all=qsa('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),[tabindex="0"]').filter(x=>x.offsetParent!==null&&!x.hidden);
+ const el=document.activeElement;
+ if(!all.includes(el)){if(all[0]){e.preventDefault();all[0].focus()}return}
+ const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+ const candidates=all.filter(x=>x!==el).map(x=>{const b=x.getBoundingClientRect(),dx=b.left+b.width/2-cx,dy=b.top+b.height/2-cy;const primary=e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:e.key==='ArrowUp'?-dy:dy;const cross=e.key==='ArrowLeft'||e.key==='ArrowRight'?Math.abs(dy):Math.abs(dx);return{x,primary,cross}}).filter(o=>o.primary>3);
+ candidates.sort((a,b)=>(a.primary+a.cross*2.1)-(b.primary+b.cross*2.1));
+ if(candidates[0]){e.preventDefault();candidates[0].x.focus()}
+}
+qsa('[data-page]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
 $('#hero-explore').addEventListener('click',()=>setPage('filmes'));$('#hero-info').addEventListener('click',()=>notify('Conecte o TMDb em Configurações para carregar o catálogo online.'));
 $('#search-form').addEventListener('submit',e=>{e.preventDefault();search($('#search-input').value)});
 $('#search-input').addEventListener('input',()=>{clearTimeout(state.searchTimer);const q=$('#search-input').value.trim();if(q.length>=2)state.searchTimer=setTimeout(()=>search(q),500)});
 $('#menu-toggle').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
 document.addEventListener('click',e=>{const c=e.target.closest('[data-open]');if(c)openDetail(c.dataset.open,c.dataset.type);const g=e.target.closest('[data-genre]');if(g){const parent=g.closest('.filter-pills'),type=parent.id==='movie-genres'?'movie':'tv',key=type==='movie'?'movieGenre':'seriesGenre';state[key]=g.dataset.genre;parent.querySelectorAll('.pill').forEach(x=>x.classList.toggle('selected',x===g));loadGrid(type,true)}});
-document.addEventListener('keydown',e=>{arrowFocus(e);if(e.key==='Escape'&&$('#sidebar').classList.contains('open'))$('#sidebar').classList.remove('open');if(e.key==='Enter'&&document.activeElement.matches('.media-card'))document.activeElement.click()});
+document.addEventListener('keydown',e=>{arrowFocus(e);if((e.key==='Escape'||e.key==='Backspace')&&$('#detail-dialog').open){e.preventDefault();closeDetailDialog();return}if(e.key==='Escape'&&$('#sidebar').classList.contains('open'))$('#sidebar').classList.remove('open');if(e.key==='Enter'&&document.activeElement.matches('.media-card')){e.preventDefault();document.activeElement.click()}});
 $('#dialog-close').addEventListener('click',closeDetailDialog);$('#detail-favorite').addEventListener('click',toggleFavorite);
 $('#movies-more').addEventListener('click',()=>{state.moviePage++;loadGrid('movie')});$('#series-more').addEventListener('click',()=>{state.seriesPage++;loadGrid('tv')});
 $('#movie-sort').addEventListener('change',e=>{state.movieSort=e.target.value;loadGrid('movie',true)});$('#series-sort').addEventListener('change',e=>{state.seriesSort=e.target.value;loadGrid('tv',true)});

@@ -55,3 +55,18 @@ A interface web atual não é um PKG nativo. A compatibilidade precisa ser valid
 - Implementar player HTML5/HLS somente quando o formato e a licença permitirem.
 - Implementar seleção de áudio/legenda usando faixas efetivamente fornecidas pela fonte.
 - Fazer testes reais em celulares, TVs e PS4 antes de marcar como compatível.
+
+
+## Aplicativo Android TV CINEMAX
+
+O wrapper Android TV em `android-tv/` abre a aplicação web publicada em modo TV. Ele oferece acesso ao catálogo e aos detalhes dentro da interface CINEMAX, mas não hospeda, extrai nem reproduz arquivos de terceiros. Links oficiais de disponibilidade podem abrir o aplicativo/site do provedor, conforme a plataforma.
+
+O APK Android TV não é instalável como FPKG no PS4 original. No PS4, ele só pode ser considerado dentro de um ambiente Android TV separado que suporte o APK. Não há garantia de compatibilidade de serviços protegidos por DRM.
+
+## Estado nesta versão
+
+- Interface TV e navegação D-pad: implementadas no frontend.
+- Wrapper Android TV WebView: adicionado; compilação automatizada deve ser verificada no workflow.
+- Launcher PS4: atualizado para abrir o modo TV; ainda usa o navegador do sistema.
+- Player integrado: não implementado; aguardando fonte autorizada e especificação técnica.
+- Seekee: sem API oficial de integração/reprodução confirmada.
