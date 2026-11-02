@@ -9,6 +9,8 @@
 
 ## Recursos implementados
 - Início com trilhos de tendências, filmes e séries.
+- Página Descobrir integrada, com tendências semanais e rota interna `?page=descobrir`.
+- Deep links internos para Início, Descobrir e Minha lista a partir do launcher PS4.
 - Busca multi-categoria, filtro por gênero, ordenação e paginação.
 - Detalhes, sinopse, avaliação, trailer público do YouTube e provedores oficiais quando disponíveis.
 - Favoritos, histórico e configurações.
