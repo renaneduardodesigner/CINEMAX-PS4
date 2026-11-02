@@ -30,7 +30,7 @@ O **CINEMAX-PS4** é um projeto independente que está sendo desenvolvido para o
 | Detalhes | Sinopse, avaliação, ano e informações do título |
 | Minha lista | Favoritos salvos no dispositivo |
 | Histórico | Títulos abertos recentemente |
-| Descoberta | Trailer público e consulta informativa de provedores quando disponíveis |
+| Descoberta | Trailer público e provedores por assinatura, grátis, com anúncios, aluguel e compra quando informados |
 | Configurações | Região, conexão do catálogo e preferências |
 | Navegação | Teclado, foco visível e setas para navegação em TV |
 | PWA | Manifesto instalável e cache local da interface para abertura offline |
@@ -59,9 +59,17 @@ O TMDb fornece metadados, imagens e resultados de pesquisa; não fornece os arqu
 
 Este produto usa a API do TMDb, mas não é endossado nem certificado pelo TMDb. Consulte os requisitos oficiais de atribuição, incluindo o uso da marca TMDb, antes de publicar uma versão final.
 
-## Integração Seekee
+## Fontes de disponibilidade e streaming
 
-A integração está mapeada em `integrations/seekee/STATUS.md`. Ainda não está conectada: precisamos de documentação e autorização oficial para qualquer integração de terceiros. O CINEMAX não presume endpoints, não acessa contas privadas e não contorna proteção de conteúdo.
+O detalhe de cada título consulta os provedores informados pelo endpoint oficial de disponibilidade do TMDb e separa assinatura, gratuito, anúncios, aluguel e compra. O link de destino é o link de consulta regional fornecido pelos dados do TMDb. Isso é uma indicação de onde procurar o título, não uma transmissão dentro do CINEMAX.
+
+- **TMDb:** metadados, imagens, pesquisa e disponibilidade por região; não entrega arquivos de vídeo.
+- **JustWatch:** a disponibilidade apresentada pelo TMDb pode apontar para a página regional de consulta. Uma integração direta depende de parceria/API e autorização.
+- **Plex:** possível fonte a avaliar, mas não há integração ativa nem garantia de catálogo ou disponibilidade no Brasil.
+- **Tomato / Tomato Anime TV:** não foi localizada documentação pública verificável de API oficial para integração; nenhum conector está ativo.
+- **Tela Brasil:** pode ser apresentada como destino externo de catálogo nacional; não existe player incorporado nem integração de reprodução confirmada.
+
+O estado das fontes e os requisitos do player estão em `docs/STREAMING-SOURCES.md`. O CINEMAX não coleta credenciais de serviços de terceiros nem tenta contornar DRM, assinatura, região ou controles de acesso.
 
 ## Publicação e validação automática
 
@@ -83,7 +91,8 @@ CINEMAX-PS4/
 ├── .github/workflows/
 │   └── deploy-pages.yml
 ├── docs/
-│   └── ARCHITECTURE.md
+│   ├── ARCHITECTURE.md
+│   └── STREAMING-SOURCES.md
 ├── integrations/
 │   └── seekee/STATUS.md
 ├── frontend/                 # Protótipo inicial preservado
@@ -98,10 +107,14 @@ CINEMAX-PS4/
 - [x] Busca e filtros de catálogo
 - [x] Favoritos e histórico local
 - [x] Conector opcional de metadados TMDb
-- [x] Detalhes e consulta informativa de provedores
+- [x] Detalhes e consulta de provedores separados por modalidade (assinatura, grátis, anúncios, aluguel e compra)
+- [x] Aviso explícito de que idioma/dublagem não é confirmado pelos dados de provedores
+- [x] Link para a página regional de disponibilidade informada pelo TMDb
 - [x] Navegação básica por teclado/setas
 - [ ] Testes em PS4 desbloqueados com firmwares-alvo 13.52, 14.00 e outras versões suportadas pelo ambiente homebrew do usuário
-- [ ] Integração Seekee, caso exista API pública e autorizada
+- [ ] Integração com serviços de streaming somente após API/parceria oficial e autorização
+- [ ] Player integrado para títulos próprios ou licenciados, com fontes de vídeo e legendas autorizadas
+- [ ] Confirmação de idioma de áudio e legendas em português brasileiro a partir de dados oficiais
 - [ ] Adaptar a interface a um runtime homebrew compatível, com detecção de recursos e fallback para WebKit antigo
 - [ ] Compilar e testar um pacote PS4 em ambiente de desenvolvimento adequado
 
