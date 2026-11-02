@@ -41,18 +41,18 @@ class MainActivity : Activity() {
             webChromeClient = WebChromeClient()
             webViewClient = object : WebViewClient() {
                 override fun onPageStarted(view: WebView?, url: String?, favicon: android.graphics.Bitmap?) {
-                    progress.visibility = View.VISIBLE
-                    status.visibility = View.GONE
+                    this@MainActivity.progress.setVisibility(View.VISIBLE)
+                    this@MainActivity.status.setVisibility(View.GONE)
                 }
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    progress.visibility = View.GONE
+                    this@MainActivity.progress.setVisibility(View.GONE)
                     view?.requestFocus()
                 }
                 override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
                     if (request?.isForMainFrame == true) {
                         progress.visibility = View.GONE
                         status.text = "Não foi possível carregar o CINEMAX. Verifique a conexão e pressione OK para tentar novamente."
-                        status.visibility = View.VISIBLE
+                        this@MainActivity.status.setVisibility(View.VISIBLE)
                     }
                 }
                 override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
