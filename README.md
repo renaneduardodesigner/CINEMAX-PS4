@@ -63,7 +63,13 @@ Este produto usa a API do TMDb, mas não é endossado nem certificado pelo TMDb.
 
 A integração está mapeada em `integrations/seekee/STATUS.md`. Ainda não está conectada: precisamos de documentação e autorização oficial para qualquer integração de terceiros. O CINEMAX não presume endpoints, não acessa contas privadas e não contorna proteção de conteúdo.
 
-## Publicação e validação automática\n\nO workflow em `.github/workflows/deploy-pages.yml` verifica a sintaxe JavaScript e a presença dos arquivos essenciais. Depois, tenta publicar o site no GitHub Pages automaticamente. A primeira publicação pode exigir que o proprietário habilite GitHub Pages nas configurações do repositório.\n\nO service worker armazena apenas os arquivos da interface no mesmo domínio; chamadas ao TMDb e imagens externas não são armazenadas por ele.\n\n## Estrutura
+## Publicação e validação automática
+
+O workflow em `.github/workflows/deploy-pages.yml` verifica a sintaxe JavaScript e a presença dos arquivos essenciais. Depois, tenta publicar o site no GitHub Pages automaticamente. A primeira publicação pode exigir que o proprietário habilite GitHub Pages nas configurações do repositório.
+
+O service worker armazena apenas os arquivos da interface no mesmo domínio; chamadas ao TMDb e imagens externas não são armazenadas por ele.
+
+## Estrutura
 
 ```text
 CINEMAX-PS4/
@@ -94,9 +100,9 @@ CINEMAX-PS4/
 - [x] Conector opcional de metadados TMDb
 - [x] Detalhes e consulta informativa de provedores
 - [x] Navegação básica por teclado/setas
-- [ ] Testes de compatibilidade em navegador de TV/PS4
+- [ ] Testes em PS4 desbloqueados com firmwares-alvo 13.52, 14.00 e outras versões suportadas pelo ambiente homebrew do usuário
 - [ ] Integração Seekee, caso exista API pública e autorizada
-- [ ] Adaptar a interface a um runtime homebrew compatível
+- [ ] Adaptar a interface a um runtime homebrew compatível, com detecção de recursos e fallback para WebKit antigo
 - [ ] Compilar e testar um pacote PS4 em ambiente de desenvolvimento adequado
 
 ## Aviso importante
