@@ -22,7 +22,7 @@ all: check-toolchain $(CONTENT_ID).pkg
 check-toolchain:
 	@test -n "$(TOOLCHAIN)" || (echo "OO_PS4_TOOLCHAIN is not set" >&2; exit 1)
 	@test -x "$(TOOLCHAIN)/bin/linux/PkgTool.Core" || (echo "PkgTool.Core missing from OpenOrbis toolchain" >&2; exit 1)
-	@test -x "$(TOOLCHAIN)/bin/linux/create-fself" || (echo "create-fself missing from OpenOrbis toolchain" >&2; exit 1)
+	@test -x "$(TOOLCHAIN)/bin/linux/create-eboot" || (echo "create-eboot missing from OpenOrbis toolchain" >&2; exit 1)
 	@command -v clang++ >/dev/null || (echo "clang++ is not available" >&2; exit 1)
 	@command -v ld.lld >/dev/null || (echo "ld.lld is not available" >&2; exit 1)
 
@@ -53,7 +53,7 @@ $(INTDIR)/%.o: $(PROJDIR)/%.cpp | $(INTDIR)
 # Do not leave it only in the intermediate build directory.
 eboot.bin: $(OBJS)
 	ld.lld $(OBJS) -o $(INTDIR)/cinemax.elf $(LDFLAGS)
-	$(TOOLCHAIN)/bin/$(CDIR)/create-fself -in=$(INTDIR)/cinemax.elf --out=$(INTDIR)/cinemax.oelf --eboot "$@" --paid 0x3800000000000011
+	$(TOOLCHAIN)/bin/$(CDIR)/create-eboot -in=$(INTDIR)/cinemax.elf -out=$(INTDIR)/cinemax.oelf --paid 0x3800000000000011
 	test -s $@
 
 $(CONTENT_ID).pkg: pkg.gp4 eboot.bin sce_sys/param.sfo sce_sys/icon0.png
