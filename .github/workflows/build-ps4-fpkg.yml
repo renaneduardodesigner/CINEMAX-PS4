@@ -56,7 +56,16 @@ jobs:
               command -v clang++
               command -v ld.lld
               make clean
-              make
+              if ! make; then
+                echo "Build failed; inspecting generated package files"
+                ls -lah .
+                if test -s IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg; then
+                  file IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg || true
+                  od -An -tx1 -N16 IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg || true
+                  "$OO_PS4_TOOLCHAIN/bin/linux/PkgTool.Core" pkg_validate IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg || true
+                fi
+                exit 1
+              fi
               test -s eboot.bin
               test -s sce_sys/param.sfo
               test -s sce_sys/icon0.png
