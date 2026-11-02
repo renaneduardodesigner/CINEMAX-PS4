@@ -73,7 +73,10 @@ jobs:
               pkg=IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
               magic=$(od -An -tx1 -N4 "$pkg" | tr -d "[:space:]")
               test "$magic" = "7f434e54"
-              echo "PKG/CNT header OK; bytes: $(wc -c < "$pkg")"
+              eboot_magic=$(od -An -tx1 -N4 eboot.bin | tr -d "[:space:]")
+              test "$eboot_magic" = "4f153d1d"
+              "$OO_PS4_TOOLCHAIN/bin/linux/PkgTool.Core" pkg_validate "$pkg"
+              echo "SELF and PKG integrity checks passed; bytes: $(wc -c < "$pkg")"
             '
 
       - name: Publish FPKG artifact
