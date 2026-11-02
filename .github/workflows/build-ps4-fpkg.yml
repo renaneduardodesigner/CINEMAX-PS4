@@ -1,0 +1,34 @@
+name: Build CINEMAX PS4 FPKG
+
+on:
+  push:
+    branches:
+      - release/cinemax-0.4-hardening
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-fpkg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Build native PS4 FPKG with OpenOrbis
+        uses: OpenOrbis/toolchain-action@main
+        with:
+          version: v0.5.1
+          command: |
+            cd ps4-native
+            python3 scripts/create_icon.py
+            make
+
+      - name: Publish FPKG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CINEMAX-PS4-FPKG
+          path: ps4-native/IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
+          if-no-files-found: error
+          retention-days: 30
