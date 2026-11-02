@@ -44,13 +44,17 @@ public:
 };
 
 typedef int32_t (*LaunchBrowserFn)(const char*, void*);
-static bool openCatalog() {
+static bool openCatalog(int page) {
     int32_t module=(int32_t)sceKernelLoadStartModule("libSceSystemService.sprx",0,NULL,0,NULL,NULL);
     if(module<0) return false;
     void *address=NULL;
     if(sceKernelDlsym(module,"sceSystemServiceLaunchWebBrowser",&address)!=0 || !address) return false;
+    const char* routes[]={"inicio","descobrir","favoritos"};
+    if(page<0 || page>2) page=0;
+    char url[256];
+    snprintf(url,sizeof(url),"https://renaneduardodesigner.github.io/CINEMAX-PS4/?page=%s",routes[page]);
     LaunchBrowserFn launch=(LaunchBrowserFn)address;
-    return launch("https://renaneduardodesigner.github.io/CINEMAX-PS4/",NULL)>=0;
+    return launch(url,NULL)>=0;
 }
 
 static uint8_t glyph(char c,int row) {
@@ -146,7 +150,7 @@ int main() {
         if(pad.Hit(ORBIS_PAD_BUTTON_LEFT)) { selected=(selected+2)%3; }
         if(pad.Hit(ORBIS_PAD_BUTTON_RIGHT)) { selected=(selected+1)%3; }
         if(pad.Hit(ORBIS_PAD_BUTTON_CROSS)) {
-            status=openCatalog()?"ABRINDO CATALOGO":"NAO FOI POSSIVEL ABRIR";
+            status=openCatalog(selected)?"ABRINDO SECAO":"NAO FOI POSSIVEL ABRIR";
             if(status[0]=='A' && status[1]=='B') {
                 // The system browser takes foreground when the launch request succeeds.
             }
