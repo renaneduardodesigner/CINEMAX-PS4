@@ -28,7 +28,7 @@ jobs:
           set -euo pipefail
           cd ps4-native
           python3 scripts/create_icon.py
-          python3 - <<'PY'
+          python3 - <<PY
           import pathlib, struct
           p = pathlib.Path("sce_sys/icon0.png")
           data = p.read_bytes()
