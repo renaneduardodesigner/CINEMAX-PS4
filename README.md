@@ -18,7 +18,7 @@
 
 O **CINEMAX-PS4** é um projeto independente que está sendo desenvolvido para oferecer uma interface bonita, simples e confortável para descobrir filmes e séries. A experiência foi desenhada com inspiração em plataformas modernas de streaming, usando uma identidade visual própria.
 
-> Esta versão já contém uma interface web navegável e integração opcional com metadados do TMDb. Ainda não é um aplicativo nativo de PS4 e não gera um arquivo PKG.
+> O repositório contém a interface web e um launcher nativo homebrew para PS4 em `ps4-native/`. O workflow `.github/workflows/build-ps4-fpkg.yml` compila um FPKG usando OpenOrbis Toolchain. O launcher abre o catálogo publicado no navegador do sistema; ele não incorpora um player de streaming.
 
 ## Prévia dos recursos
 
@@ -43,6 +43,14 @@ O **CINEMAX-PS4** é um projeto independente que está sendo desenvolvido para o
 4. Para usar o catálogo online, abra **Configurações** no app e configure seu token de leitura do TMDb.
 
 O app também funciona em **modo demonstração**, com títulos fictícios, sem precisar configurar uma conta.
+
+## Aplicativo nativo para PS4 (FPKG)
+
+O launcher homebrew está em `ps4-native/`. Ele apresenta a interface CINEMAX na TV e, ao pressionar X, solicita a abertura do catálogo web no navegador do sistema. A interface web precisa estar publicada e acessível pela rede. O pacote não contém filmes, séries ou um player incorporado.
+
+Para gerar o pacote, abra **Actions → Build CINEMAX PS4 FPKG** e execute o workflow manualmente, ou envie um commit para `release/cinemax-0.4-hardening`. Quando a execução terminar com sucesso, baixe o artefato `CINEMAX-PS4-FPKG` na página da execução. O arquivo esperado é `IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg`.
+
+**Atenção:** a compilação automatizada confirma apenas que o FPKG foi construído. A instalação e a abertura ainda precisam ser verificadas em um PS4 real com GoldHEN. O lançamento do navegador depende dos serviços disponíveis no firmware/runtime.
 
 ## Catálogo online — TMDb
 
