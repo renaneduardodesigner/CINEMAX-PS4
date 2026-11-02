@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
 
       - name: Generate and validate package icon
         shell: bash
@@ -80,7 +80,7 @@ jobs:
             '
 
       - name: Publish FPKG artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: CINEMAX-PS4-FPKG
           path: ps4-native/IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
