@@ -30,7 +30,8 @@ O **CINEMAX-PS4** é um projeto independente que está sendo desenvolvido para o
 | Detalhes | Sinopse, avaliação, ano e informações do título |
 | Minha lista | Favoritos salvos no dispositivo |
 | Histórico | Títulos abertos recentemente |
-| Descoberta | Trailer público e provedores por assinatura, grátis, com anúncios, aluguel e compra quando informados |
+| Descobrir | Página interna com tendências semanais e seleção local de demonstração |
+| Descoberta de disponibilidade | Trailer público e provedores por assinatura, grátis, com anúncios, aluguel e compra quando informados |
 | Configurações | Região, conexão do catálogo e preferências |
 | Navegação | Teclado, foco visível e setas para navegação em TV |
 | PWA | Manifesto instalável e cache local da interface para abertura offline |
@@ -46,7 +47,7 @@ O app também funciona em **modo demonstração**, com títulos fictícios, sem 
 
 ## Aplicativo nativo para PS4 (FPKG)
 
-O launcher homebrew está em `ps4-native/`. Ele apresenta a interface CINEMAX na TV e, ao pressionar X, solicita a abertura do catálogo web no navegador do sistema. A interface web precisa estar publicada e acessível pela rede. O pacote não contém filmes, séries ou um player incorporado.
+O launcher homebrew está em `ps4-native/`. Ele apresenta a interface CINEMAX na TV e, ao pressionar X, abre no navegador do sistema a seção correspondente à opção selecionada: Início, Descobrir ou Minha lista. As três rotas são internas ao CINEMAX (`?page=inicio`, `?page=descobrir` e `?page=favoritos`). A interface web precisa estar publicada e acessível pela rede. O pacote não contém filmes, séries ou um player incorporado.
 
 Para gerar o pacote, abra **Actions → Build CINEMAX PS4 FPKG** e execute o workflow manualmente, ou envie um commit para `release/cinemax-0.4-hardening`. Quando a execução terminar com sucesso, baixe o artefato `CINEMAX-PS4-FPKG` na página da execução. O arquivo esperado é `IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg`.
 
