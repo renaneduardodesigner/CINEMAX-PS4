@@ -133,6 +133,7 @@ int main() {
         DEBUGLOG << "CINEMAX: falha ao inicializar video";
         for(;;) sceKernelUsleep(1000000);
     }
+    scene.SetActiveFrameBuffer(0);
     Pad pad;
     if(!pad.Init()) {
         DEBUGLOG << "CINEMAX: controle nao inicializado";
