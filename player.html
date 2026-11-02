@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080a10">
+<title>CINEMAX — Meu Player</title><link rel="stylesheet" href="assets/player.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="./index.html"><b>C</b> CINE<span>MAX</span></a><a class="back" href="./index.html">← Voltar ao catálogo</a></header>
+<main class="wrap">
+<section class="heading"><p class="eyebrow">SUA BIBLIOTECA PARTICULAR</p><h1>Meus vídeos<span>.</span></h1><p>Reproduza arquivos que você possui ou vídeos hospedados na sua rede local.</p></section>
+<section class="player-card">
+<div class="screen" id="screen"><video id="video" controls playsinline preload="metadata"></video><div class="screen-empty" id="screen-empty"><div class="play-mark">▶</div><h2>Sua próxima sessão começa aqui</h2><p>Escolha um vídeo do seu dispositivo ou informe o endereço de um arquivo de mídia.</p></div></div>
+<div class="now"><div><small>REPRODUZINDO AGORA</small><h2 id="now-title">Nenhum vídeo selecionado</h2></div><span id="play-state">PRONTO</span></div>
+<div class="tools">
+<label class="pick">＋ Abrir arquivos<input id="files" type="file" accept="video/*,.mp4,.m4v,.webm,.ogv,.mov,.mkv" multiple></label>
+<label class="pick secondary">＋ Legenda (.vtt/.srt)<input id="subtitle" type="file" accept=".vtt,.srt,text/vtt"></label>
+</div>
+<form class="url-form" id="url-form"><label for="media-url">Endereço direto do seu vídeo</label><div><input id="media-url" type="url" placeholder="http://192.168.1.10:8080/filme.mp4" required><button type="submit">Abrir URL</button></div><small>Use um link direto para um arquivo de vídeo na sua rede ou em um servidor seu. Links de páginas de streaming não funcionam aqui.</small></form>
+</section>
+<section class="library"><div class="library-head"><div><p class="eyebrow">ARQUIVOS ADICIONADOS NESTA SESSÃO</p><h2>Fila de reprodução</h2></div><button id="clear" class="clear">Limpar fila</button></div><div id="playlist" class="playlist"><p class="empty">Nenhum arquivo adicionado. Selecione um vídeo acima.</p></div></section>
+<section class="note"><b>Compatibilidade:</b> para melhor resultado, use MP4 com vídeo H.264 e áudio AAC. No PS4, a reprodução de arquivos locais pode depender do navegador e do formato; para maior compatibilidade, hospede seus próprios vídeos em um servidor HTTP na mesma rede e cole o link direto acima. O CINEMAX não fornece filmes nem contorna serviços pagos. Os arquivos locais não são enviados para nenhum servidor.</section>
+</main>
+<script src="assets/player.js"></script>
+</body></html>
