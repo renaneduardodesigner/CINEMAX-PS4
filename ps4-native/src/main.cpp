@@ -1,5 +1,6 @@
 #include <sstream>
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 #include <orbis/libkernel.h>
 #include <orbis/Pad.h>
