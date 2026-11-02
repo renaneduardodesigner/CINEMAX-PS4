@@ -6,26 +6,13 @@ CONTENT_ID  := IV0000-CMAX00001_00-CINEMAXPS4APP000
 LIBS        := -lc -lkernel -lc++ -lSceVideoOut -lScePad -lSceUserService
 TOOLCHAIN   := $(OO_PS4_TOOLCHAIN)
 PROJDIR     := src
-COMMONDIR   := $(TOOLCHAIN)/samples/_common
 INTDIR      := $(PROJDIR)/x64/Debug
 CXXFILES    := $(wildcard $(PROJDIR)/*.cpp)
-COMMONFILES := $(COMMONDIR)/graphics.cpp
-OBJS        := $(patsubst $(PROJDIR)/%.cpp,$(INTDIR)/%.o,$(CXXFILES)) $(patsubst $(COMMONDIR)/%.cpp,$(INTDIR)/%.o,$(COMMONFILES))
+OBJS        := $(patsubst $(PROJDIR)/%.cpp,$(INTDIR)/%.o,$(CXXFILES))
 
-CXXFLAGS    := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysroot $(TOOLCHAIN) -isystem $(TOOLCHAIN)/include -isystem $(TOOLCHAIN)/include/c++/v1 -I$(COMMONDIR)
+CXXFLAGS    := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysroot $(TOOLCHAIN) -isystem $(TOOLCHAIN)/include -isystem $(TOOLCHAIN)/include/c++/v1
 LDFLAGS     := -m elf_x86_64 -pie --script $(TOOLCHAIN)/link.x --eh-frame-hdr -L$(TOOLCHAIN)/lib $(LIBS) $(TOOLCHAIN)/lib/crt1.o
-
-UNAME_S     := $(shell uname -s)
-ifeq ($(UNAME_S),Linux)
-  CCX := clang++
-  LD  := ld.lld
-  CDIR := linux
-else
-  CCX := /usr/local/opt/llvm/bin/clang++
-  LD  := /usr/local/opt/llvm/bin/ld.lld
-  CDIR := macos
-endif
-
+CDIR        := linux
 all: $(CONTENT_ID).pkg
 
 sce_sys/icon0.png:
@@ -49,13 +36,10 @@ $(INTDIR):
 	mkdir -p $(INTDIR)
 
 $(INTDIR)/%.o: $(PROJDIR)/%.cpp | $(INTDIR)
-	$(CCX) $(CXXFLAGS) -o $@ $<
-
-$(INTDIR)/graphics.o: $(COMMONDIR)/graphics.cpp | $(INTDIR)
-	$(CCX) $(CXXFLAGS) -o $@ $<
+	clang++ $(CXXFLAGS) -o $@ $<
 
 eboot.bin: $(OBJS)
-	$(LD) $(OBJS) -o $(INTDIR)/cinemax.elf $(LDFLAGS)
+	ld.lld $(OBJS) -o $(INTDIR)/cinemax.elf $(LDFLAGS)
 	$(TOOLCHAIN)/bin/$(CDIR)/create-fself -in=$(INTDIR)/cinemax.elf -out=$(INTDIR)/cinemax.oelf --eboot "eboot.bin" --paid 0x3800000000000011
 
 pkg.gp4: eboot.bin sce_sys/param.sfo sce_sys/icon0.png
