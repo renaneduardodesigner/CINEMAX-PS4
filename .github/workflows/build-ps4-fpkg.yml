@@ -62,7 +62,7 @@ jobs:
               test -s sce_sys/icon0.png
               test -s IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
               pkg=IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
-              magic=$(od -An -tx1 -N4 "$pkg" | tr -d " \\n")
+              magic=$(od -An -tx1 -N4 "$pkg" | tr -d "[:space:]")
               test "$magic" = "7f504b47"
               echo "PKG header OK; bytes: $(wc -c < "$pkg")"
             '
