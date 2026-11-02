@@ -14,8 +14,17 @@ CXXFLAGS    := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysro
 LDFLAGS     := -m elf_x86_64 -pie --script $(TOOLCHAIN)/link.x --eh-frame-hdr -L$(TOOLCHAIN)/lib $(LIBS) $(TOOLCHAIN)/lib/crt1.o
 CDIR        := linux
 
-.PHONY: all clean
-all: $(CONTENT_ID).pkg
+.PHONY: all clean check-toolchain
+.DEFAULT_GOAL := all
+
+all: check-toolchain $(CONTENT_ID).pkg
+
+check-toolchain:
+	@test -n "$(TOOLCHAIN)" || (echo "OO_PS4_TOOLCHAIN is not set" >&2; exit 1)
+	@test -x "$(TOOLCHAIN)/bin/linux/PkgTool.Core" || (echo "PkgTool.Core missing from OpenOrbis toolchain" >&2; exit 1)
+	@test -x "$(TOOLCHAIN)/bin/linux/create-eboot" || (echo "create-eboot missing from OpenOrbis toolchain" >&2; exit 1)
+	@command -v clang++ >/dev/null || (echo "clang++ is not available" >&2; exit 1)
+	@command -v ld.lld >/dev/null || (echo "ld.lld is not available" >&2; exit 1)
 
 sce_sys/icon0.png:
 	python3 scripts/create_icon.py
