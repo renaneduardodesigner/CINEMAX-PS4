@@ -61,7 +61,12 @@ jobs:
               test -s sce_sys/param.sfo
               test -s sce_sys/icon0.png
               test -s IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
-              python3 -c "from pathlib import Path; p=Path(\x27IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg\x27); assert p.read_bytes()[:4] == bytes.fromhex(\x277f504b47\x27), \x27Output does not have PS4 PKG magic\x27; print(\x27PKG header OK; bytes:\x27, p.stat().st_size)"
+              python3 - <<'PY'
+              from pathlib import Path
+              pkg = Path("IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg")
+              assert pkg.read_bytes()[:4] == bytes.fromhex("7f504b47"), "Output does not have PS4 PKG magic"
+              print("PKG header OK; bytes:", pkg.stat().st_size)
+              PY
             '
 
       - name: Publish FPKG artifact
