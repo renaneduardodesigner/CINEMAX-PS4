@@ -42,10 +42,7 @@ eboot.bin: $(OBJS)
 	ld.lld $(OBJS) -o $(INTDIR)/cinemax.elf $(LDFLAGS)
 	$(TOOLCHAIN)/bin/$(CDIR)/create-eboot -in=$(INTDIR)/cinemax.elf -out=$(INTDIR)/cinemax.oelf --paid 0x3800000000000011
 
-pkg.gp4: eboot.bin sce_sys/param.sfo sce_sys/icon0.png
-	$(TOOLCHAIN)/bin/$(CDIR)/create-gp4 -out $@ --content-id=$(CONTENT_ID) --files "$^"
-
-$(CONTENT_ID).pkg: pkg.gp4
+$(CONTENT_ID).pkg: pkg.gp4 eboot.bin sce_sys/param.sfo sce_sys/icon0.png
 	$(TOOLCHAIN)/bin/$(CDIR)/PkgTool.Core pkg_build $< .
 
 clean:
