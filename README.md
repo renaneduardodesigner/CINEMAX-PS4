@@ -46,7 +46,7 @@ O app também funciona em **modo demonstração**, com títulos fictícios, sem 
 
 ## Catálogo online — TMDb
 
-O TMDb fornece metadados, imagens e resultados de pesquisa; não fornece os arquivos dos filmes. Para habilitar:
+O TMDb fornece metadados, imagens e resultados de pesquisa; não fornece os arquivos dos filmes. O uso gratuito da API é destinado a projetos não comerciais e exige atribuição conforme as regras oficiais. Projetos comerciais precisam consultar o TMDb para licenciamento. As imagens e dados também podem ter direitos próprios; não presuma que possam ser redistribuídos livremente. Para habilitar:
 
 1. Crie sua própria credencial de API no site oficial do TMDb.
 2. No CINEMAX, abra **Configurações → Conectar catálogo TMDb**.
@@ -57,7 +57,7 @@ O TMDb fornece metadados, imagens e resultados de pesquisa; não fornece os arqu
 - Documentação: https://developer.themoviedb.org/docs
 - Configurações da API: https://www.themoviedb.org/settings/api
 
-Este produto usa a API do TMDb, mas não é endossado nem certificado pelo TMDb.
+Este produto usa a API do TMDb, mas não é endossado nem certificado pelo TMDb. Consulte os requisitos oficiais de atribuição, incluindo o uso da marca TMDb, antes de publicar uma versão final.
 
 ## Integração Seekee
 
