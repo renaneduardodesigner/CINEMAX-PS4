@@ -53,3 +53,15 @@ button,select,a,[tabindex="0"]{touch-action:manipulation}
 @media(prefers-reduced-motion:reduce){
   *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+/* Disponibilidade por serviço: dados informativos do TMDb */
+.provider-box{display:block}
+.provider-box>h3{font-size:14px;color:#f3f5f8;margin:0 0 12px}
+.provider-group{margin:12px 0}
+.provider-group h4{font-size:10px;letter-spacing:.4px;color:#aeb8c8;margin:0 0 8px}
+.provider-list{display:flex;flex-wrap:wrap;gap:8px}
+.provider-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid #303b4e;background:#151e2b;border-radius:7px;color:#e2e7ef;font-size:10px}
+.provider-chip img{width:22px;height:22px;object-fit:contain;border-radius:5px}
+.provider-note{font-size:9px;color:#8f9bad;line-height:1.65;margin:14px 0}
+.provider-official-link{display:inline-flex;margin-top:5px;color:#ff7892;font-size:10px;font-weight:800;text-decoration:none}
+.provider-official-link:hover{text-decoration:underline}
