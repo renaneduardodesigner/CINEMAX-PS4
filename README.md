@@ -33,6 +33,7 @@ O **CINEMAX-PS4** é um projeto independente que está sendo desenvolvido para o
 | Descoberta | Trailer público e consulta informativa de provedores quando disponíveis |
 | Configurações | Região, conexão do catálogo e preferências |
 | Navegação | Teclado, foco visível e setas para navegação em TV |
+| PWA | Manifesto instalável e cache local da interface para abertura offline |
 
 ## ▶ Como abrir
 
@@ -62,7 +63,7 @@ Este produto usa a API do TMDb, mas não é endossado nem certificado pelo TMDb.
 
 A integração está mapeada em `integrations/seekee/STATUS.md`. Ainda não está conectada: precisamos de documentação e autorização oficial para qualquer integração de terceiros. O CINEMAX não presume endpoints, não acessa contas privadas e não contorna proteção de conteúdo.
 
-## Estrutura
+## Publicação e validação automática\n\nO workflow em `.github/workflows/deploy-pages.yml` verifica a sintaxe JavaScript e a presença dos arquivos essenciais. Depois, tenta publicar o site no GitHub Pages automaticamente. A primeira publicação pode exigir que o proprietário habilite GitHub Pages nas configurações do repositório.\n\nO service worker armazena apenas os arquivos da interface no mesmo domínio; chamadas ao TMDb e imagens externas não são armazenadas por ele.\n\n## Estrutura
 
 ```text
 CINEMAX-PS4/
