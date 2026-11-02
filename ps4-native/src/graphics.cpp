@@ -29,6 +29,7 @@ bool Scene2D::initFlipQueue() {
     return true;
 }
 bool Scene2D::allocateFrameBuffers(int num) {
+    if(num<=0 || (size_t)frameBufferSize*(size_t)num>directMemAllocationSize) return false;
     frameBufferCount=num;
     frameBuffers=new char*[num];
     for(int i=0;i<num;i++) frameBuffers[i]=allocateDisplayMem(frameBufferSize);
