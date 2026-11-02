@@ -104,7 +104,8 @@ CINEMAX-PS4/
 ├── integrations/
 │   └── seekee/STATUS.md
 ├── frontend/                 # Protótipo inicial preservado
-├── ps4/                      # Notas de compatibilidade
+├── ps4/                      # Matriz de compatibilidade
+├── ps4-native/               # Launcher C++ e build FPKG OpenOrbis
 └── README.md
 ```
 
