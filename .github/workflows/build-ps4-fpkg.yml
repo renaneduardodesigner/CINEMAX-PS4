@@ -3,7 +3,7 @@ name: Build CINEMAX PS4 FPKG
 on:
   push:
     branches:
-      - release/cinemax-0.4-hardening
+      - 'release/**'
   workflow_dispatch:
 
 permissions:
