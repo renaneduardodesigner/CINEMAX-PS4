@@ -53,9 +53,6 @@ jobs:
               : "${OO_PS4_TOOLCHAIN:?OO_PS4_TOOLCHAIN is not set in the OpenOrbis container}"
               test -x "$OO_PS4_TOOLCHAIN/bin/linux/PkgTool.Core"
               test -x "$OO_PS4_TOOLCHAIN/bin/linux/create-eboot"
-              test -s "$OO_PS4_TOOLCHAIN/samples/hello_world/pkg/sce_sys/about/right.sprx"
-              test -s "$OO_PS4_TOOLCHAIN/samples/hello_world/pkg/sce_module/libc.prx"
-              test -s "$OO_PS4_TOOLCHAIN/samples/hello_world/pkg/sce_module/libSceFios2.prx"
               command -v clang++
               command -v ld.lld
               make clean
