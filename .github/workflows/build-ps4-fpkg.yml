@@ -64,7 +64,8 @@ jobs:
               pkg=IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
               magic=$(od -An -tx1 -N4 "$pkg" | tr -d " \\n")
               test "$magic" = "7f504b47"
-              echo "PKG header OK; bytes: $(wc -c < "$pkg")"            '
+              echo "PKG header OK; bytes: $(wc -c < "$pkg")"
+            '
 
       - name: Publish FPKG artifact
         uses: actions/upload-artifact@v4
