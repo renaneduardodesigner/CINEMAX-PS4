@@ -27,7 +27,7 @@ jobs:
             -v "$GITHUB_WORKSPACE:/workspace" \
             -w /workspace/ps4-native \
             openorbisofficial/toolchain:v0.5.1 \
-            make
+            sh -lc 'make clean && make && test -s eboot.bin && test -s IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg'
 
       - name: Publish FPKG artifact
         uses: actions/upload-artifact@v4
