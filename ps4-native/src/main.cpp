@@ -53,7 +53,7 @@ static bool openCatalog(int page) {
     const char* routes[]={"inicio","descobrir","favoritos"};
     if(page<0 || page>2) page=0;
     char url[256];
-    snprintf(url,sizeof(url),"https://renaneduardodesigner.github.io/CINEMAX-PS4/?page=%s",routes[page]);
+    snprintf(url,sizeof(url),"https://renaneduardodesigner.github.io/CINEMAX-PS4/?tv=1&page=%s",routes[page]);
     LaunchBrowserFn launch=(LaunchBrowserFn)address;
     return launch(url,NULL)>=0;
 }
