@@ -16,13 +16,18 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Generate package icon
+        run: |
+          cd ps4-native
+          python3 scripts/create_icon.py
+
       - name: Build native PS4 FPKG with OpenOrbis container
         run: |
           docker run --rm \
             -v "$GITHUB_WORKSPACE:/workspace" \
             -w /workspace/ps4-native \
             openorbisofficial/toolchain:v0.5.1 \
-            bash -lc "python3 scripts/create_icon.py && make"
+            make
 
       - name: Publish FPKG artifact
         uses: actions/upload-artifact@v4
