@@ -1,6 +1,6 @@
 (()=>{'use strict';
 const API='https://api.themoviedb.org/3',IMG='https://image.tmdb.org/t/p/';
-const $=s=>document.querySelector(s),$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s);const qsa=s=>[...document.querySelectorAll(s)];
 const tvMode=new URLSearchParams(location.search).get('tv')==='1';
 if(tvMode)document.documentElement.classList.add('tv-mode');
 const store={get(k,d){try{return JSON.parse(localStorage.getItem('cinemax.'+k))??d}catch{return d}},set(k,v){localStorage.setItem('cinemax.'+k,JSON.stringify(v))}};
@@ -54,7 +54,7 @@ function arrowFocus(e){
  candidates.sort((a,b)=>(a.primary+a.cross*2.1)-(b.primary+b.cross*2.1));
  if(candidates[0]){e.preventDefault();candidates[0].x.focus()}
 }
-$$('[data-page]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
+qsa('[data-page]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
 $('#hero-explore').addEventListener('click',()=>setPage('filmes'));$('#hero-info').addEventListener('click',()=>notify('Conecte o TMDb em Configurações para carregar o catálogo online.'));
 $('#search-form').addEventListener('submit',e=>{e.preventDefault();search($('#search-input').value)});
 $('#search-input').addEventListener('input',()=>{clearTimeout(state.searchTimer);const q=$('#search-input').value.trim();if(q.length>=2)state.searchTimer=setTimeout(()=>search(q),500)});
