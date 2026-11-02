@@ -16,7 +16,7 @@ class MainActivity : Activity() {
     private lateinit var webView: WebView
     private lateinit var progress: ProgressBar
     private lateinit var status: TextView
-    private val homeUrl = "https://renaneduardedesigner.github.io/CINEMAX-PS4/?tv=1"
+    private val homeUrl = "https://renaneduardodesigner.github.io/CINEMAX-PS4/?tv=1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,21 +50,21 @@ class MainActivity : Activity() {
                 }
                 override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
                     if (request?.isForMainFrame == true) {
-                        progress.visibility = View.GONE
+                        this@MainActivity.progress.setVisibility(View.GONE)
                         status.text = "Não foi possível carregar o CINEMAX. Verifique a conexão e pressione OK para tentar novamente."
                         this@MainActivity.status.setVisibility(View.VISIBLE)
                     }
                 }
                 override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                     val uri = request?.url ?: return true
-                    return uri.scheme != "https" || uri.host != "renaneduardedesigner.github.io"
+                    return uri.scheme != "https" || uri.host != "renaneduardodesigner.github.io"
                 }
             }
         }
         progress = ProgressBar(this).apply { isIndeterminate = true }
         status = TextView(this).apply {
             setTextColor(Color.WHITE); textSize = 20f; gravity = Gravity.CENTER
-            visibility = View.GONE; setPadding(48, 32, 48, 32)
+            setVisibility(View.GONE); setPadding(48, 32, 48, 32)
             setOnClickListener { webView.reload() }
         }
         root.addView(webView, FrameLayout.LayoutParams(-1, -1))
