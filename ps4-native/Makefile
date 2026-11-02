@@ -54,4 +54,5 @@ $(CONTENT_ID).pkg: pkg.gp4 eboot.bin sce_sys/param.sfo sce_sys/icon0.png
 	$(TOOLCHAIN)/bin/$(CDIR)/PkgTool.Core pkg_build $< .
 
 clean:
-	rm -rf $(INTDIR) eboot.bin $(CONTENT_ID).pkg sce_sys/param.sfo sce_sys/icon0.png
+	rm -rf $(INTDIR) eboot.bin $(CONTENT_ID).pkg sce_sys/param.sfo
+	# Keep icon0.png: CI generates it on the host before the toolchain container runs.
