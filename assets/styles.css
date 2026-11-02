@@ -73,3 +73,39 @@ button,select,a,[tabindex="0"]{touch-action:manipulation}
 .discover-intro strong{display:block;font-size:12px;color:#f4f6fa;margin-bottom:4px}
 .discover-intro p{margin:0;color:#929daf;font-size:10px;line-height:1.6}
 @media(max-width:480px){.discover-intro{padding:13px}.discover-spark{flex:0 0 34px;width:34px;height:34px}}
+
+/* CINEMAX TV mode: activated with ?tv=1 by Android TV and the PS4 launcher. */
+html.tv-mode{font-size:18px;scroll-behavior:auto}
+.tv-mode body{font-size:16px;overflow-x:hidden}
+.tv-mode .sidebar{width:280px;padding:34px 22px}
+.tv-mode .main-area{margin-left:280px}
+.tv-mode .topbar{height:88px;padding-inline:4vw}
+.tv-mode .content{max-width:1900px;padding:28px 4vw 80px}
+.tv-mode .page{padding-top:32px}
+.tv-mode .hero{height:430px;border-radius:20px;padding-inline:5%}
+.tv-mode .hero h1{font-size:clamp(48px,4.4vw,76px)}
+.tv-mode .hero-copy>p:not(.eyebrow){font-size:16px}
+.tv-mode .nav-item{min-height:54px;font-size:15px;padding:14px}
+.tv-mode .nav-item span{font-size:22px}
+.tv-mode .btn,.tv-mode .pill,.tv-mode .load-more{min-height:48px;font-size:14px;padding:12px 18px}
+.tv-mode .media-card{border-radius:13px}
+.tv-mode .card-row{grid-auto-columns:minmax(180px,1fr);gap:18px}
+.tv-mode .poster-grid{gap:20px}
+.tv-mode .card-title{font-size:14px}
+.tv-mode .card-meta{font-size:11px}
+.tv-mode .poster-word{font-size:21px}
+.tv-mode .page-heading h1{font-size:40px}
+.tv-mode .shelf-head h3{font-size:21px}
+.tv-mode .shelf-head p,.tv-mode .page-heading>div>p:last-child{font-size:14px}
+.tv-mode .global-search{height:48px;max-width:460px}
+.tv-mode .global-search input{font-size:15px}
+.tv-mode :focus-visible{outline:4px solid #ff6684!important;outline-offset:5px!important;box-shadow:0 0 0 8px #ed174b38!important}
+.tv-mode .media-card:focus-visible{transform:scale(1.045);border-color:#ff6684;z-index:2}
+.tv-mode .detail-dialog{width:min(920px,88vw);max-height:88vh}
+.tv-mode .detail-content{padding:30px 38px}
+.tv-mode .detail-content h2{font-size:38px}
+.tv-mode .dialog-close{width:48px;height:48px;font-size:30px}
+.tv-mode .settings-card{padding:28px}
+.tv-mode .field{min-height:48px;font-size:15px}
+@media(max-width:900px){.tv-mode .sidebar{width:220px}.tv-mode .main-area{margin-left:220px}.tv-mode .card-row{grid-auto-columns:180px}}
+@media(prefers-reduced-motion:reduce){.tv-mode *{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
