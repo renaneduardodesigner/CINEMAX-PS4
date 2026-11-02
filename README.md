@@ -67,18 +67,21 @@ A integração está mapeada em `integrations/seekee/STATUS.md`. Ainda não est�
 
 ```text
 CINEMAX-PS4/
-├── index.html                 # Aplicativo web principal
+├── index.html
 ├── assets/
-│   ├── app.js                 # Busca, catálogo e interações
-│   ├── styles.css             # Identidade visual responsiva
-│   └── icon.svg               # Ícone CINEMAX
+│   ├── app.js
+│   ├── styles.css
+│   └── icon.svg
+├── manifest.webmanifest
+├── service-worker.js
+├── .github/workflows/
+│   └── deploy-pages.yml
 ├── docs/
-│   └── ARCHITECTURE.md        # Arquitetura e decisões técnicas
+│   └── ARCHITECTURE.md
 ├── integrations/
-│   └── seekee/
-│       └── STATUS.md          # Situação da integração Seekee
-├── frontend/                  # Protótipo inicial
-├── ps4/                       # Notas de compatibilidade
+│   └── seekee/STATUS.md
+├── frontend/                 # Protótipo inicial preservado
+├── ps4/                      # Notas de compatibilidade
 └── README.md
 ```
 
