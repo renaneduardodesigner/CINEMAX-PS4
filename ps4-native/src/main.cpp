@@ -129,7 +129,7 @@ static void draw(Scene2D* s,int selected,const char* status) {
 int main() {
     setvbuf(stdout,NULL,_IONBF,0);
     Scene2D scene(WIDTH,HEIGHT,DEPTH);
-    if(!scene.Init(0xC000000,2)) {
+    if(!scene.Init(0x1000000,2)) {
         DEBUGLOG << "CINEMAX: falha ao inicializar video";
         for(;;) sceKernelUsleep(1000000);
     }
