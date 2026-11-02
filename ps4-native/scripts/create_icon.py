@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import struct, zlib
+import struct, zlib, os
+os.makedirs("sce_sys", exist_ok=True)
 W=H=512
 rows=[]
 for y in range(H):
