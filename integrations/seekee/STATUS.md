@@ -2,7 +2,7 @@
 
 **Situação: não conectada — aguardando confirmação técnica do fornecedor.**
 
-A descrição pública do Seekee para filmes e séries informa que o produto funciona como guia de descoberta, usa dados do TMDb e não hospeda nem transmite vídeos. Até esta revisão, não foi localizada documentação pública de API para integrar o Seekee como catálogo ou serviço de reprodução de terceiros.
+A descrição pública da listagem do Seekee para filmes e séries apresenta o produto como guia de descoberta, informa que os dados são fornecidos pelo TMDb e declara que o aplicativo não hospeda nem transmite vídeos. Isso significa que o Seekee não pode ser tratado como uma fonte de arquivos de vídeo para o CINEMAX. A listagem também declara licença CC BY-NC 4.0 para os dados. Até esta revisão, não foi localizada documentação pública de API para integrar o Seekee como catálogo ou serviço de reprodução de terceiros.
 
 O CINEMAX mantém este ponto de integração separado para que um conector oficial possa ser implementado se o fornecedor disponibilizar:
 - documentação de API e termos de uso;
