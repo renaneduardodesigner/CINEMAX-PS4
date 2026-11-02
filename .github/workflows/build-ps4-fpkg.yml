@@ -23,7 +23,7 @@ jobs:
 
       - name: Build native PS4 FPKG with OpenOrbis container
         run: |
-          docker run --rm \
+          docker run --rm --user root \
             -v "$GITHUB_WORKSPACE:/workspace" \
             -w /workspace/ps4-native \
             openorbisofficial/toolchain:v0.5.1 \
