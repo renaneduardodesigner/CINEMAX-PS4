@@ -9,25 +9,60 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: cinemax-ps4-fpkg-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-fpkg:
-    runs-on: ubuntu-latest
+    name: Build native PS4 FPKG
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Generate package icon
+      - name: Generate and validate package icon
+        shell: bash
         run: |
+          set -euo pipefail
           cd ps4-native
           python3 scripts/create_icon.py
+          python3 - <<'PY'
+          import pathlib, struct
+          p = pathlib.Path("sce_sys/icon0.png")
+          data = p.read_bytes()
+          if not data.startswith(b"\x89PNG\r\n\x1a\n"):
+              raise SystemExit("icon0.png is not a PNG")
+          width, height, depth, color = struct.unpack(">IIBB", data[16:26])
+          if (width, height, depth, color) != (512, 512, 8, 2):
+              raise SystemExit(f"icon0.png must be 512x512, 8-bit RGB; got {width}x{height}, depth={depth}, color={color}")
+          print(f"Icon OK: {width}x{height}, 24-bit RGB")
+          PY
 
-      - name: Build native PS4 FPKG with OpenOrbis container
+      - name: Build with official OpenOrbis Toolchain container
+        shell: bash
         run: |
+          set -euo pipefail
           docker run --rm --user root \
             -v "$GITHUB_WORKSPACE:/workspace" \
             -w /workspace/ps4-native \
             openorbisofficial/toolchain:v0.5.1 \
-            sh -lc 'make clean && make && test -s eboot.bin && test -s IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg'
+            sh -lc '
+              set -eu
+              : "${OO_PS4_TOOLCHAIN:?OO_PS4_TOOLCHAIN is not set in the OpenOrbis container}"
+              test -x "$OO_PS4_TOOLCHAIN/bin/linux/PkgTool.Core"
+              test -x "$OO_PS4_TOOLCHAIN/bin/linux/create-eboot"
+              command -v clang++
+              command -v ld.lld
+              make clean
+              make
+              test -s eboot.bin
+              test -s sce_sys/param.sfo
+              test -s sce_sys/icon0.png
+              test -s IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
+              python3 -c "from pathlib import Path; p=Path(\x27IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg\x27); assert p.read_bytes()[:4] == bytes.fromhex(\x277f504b47\x27), \x27Output does not have PS4 PKG magic\x27; print(\x27PKG header OK; bytes:\x27, p.stat().st_size)"
+            '
 
       - name: Publish FPKG artifact
         uses: actions/upload-artifact@v4
