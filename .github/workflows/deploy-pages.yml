@@ -51,7 +51,7 @@ jobs:
           test -s _site/assets/styles.css
 
   deploy:
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release/cinemax-0.4-hardening'
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
     needs: validate
     environment:
       name: github-pages
