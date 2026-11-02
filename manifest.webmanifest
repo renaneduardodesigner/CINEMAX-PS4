@@ -1,0 +1,15 @@
+{
+  "name": "CINEMAX-PS4",
+  "short_name": "CINEMAX",
+  "description": "Descubra filmes e séries em uma interface pensada para telas grandes.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080a10",
+  "theme_color": "#080a10",
+  "orientation": "landscape",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
