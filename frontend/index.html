@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b10">
+<title>CINEMAX</title><link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="#"><span class="brand-mark">C</span>CINEMAX</a><nav><a class="active" href="#inicio">Início</a><a href="#filmes">Catálogo</a><a href="#lista">Minha lista</a></nav><label class="search">⌕ <input id="search" type="search" placeholder="Buscar títulos..." aria-label="Buscar títulos"></label></header>
+<main id="inicio"><section class="hero"><div class="hero-content"><p class="eyebrow">DESTAQUE CINEMAX</p><h1>Histórias que<br><em>merecem ser vistas.</em></h1><p class="hero-copy">Explore uma seleção de obras gratuitas, de domínio público e disponibilizadas por fontes autorizadas.</p><a class="btn primary" href="#filmes">Explorar catálogo</a></div><div class="hero-orb"></div></section>
+<section class="catalog-section" id="filmes"><div class="section-head"><div><p class="eyebrow">DESCUBRA</p><h2>Em destaque</h2></div><span id="count" class="muted"></span></div><div class="filters"><button class="filter active" data-filter="Todos">Todos</button><button class="filter" data-filter="Filme">Filmes</button><button class="filter" data-filter="Série">Séries</button><button class="filter" data-filter="Documentário">Documentários</button></div><div id="catalog" class="grid" aria-live="polite"></div><p id="empty" class="empty" hidden>Nenhum título encontrado.</p></section>
+<section class="catalog-section secondary" id="lista"><div class="section-head"><div><p class="eyebrow">SUA EXPERIÊNCIA</p><h2>Minha lista</h2></div></div><div id="watchlist" class="grid"></div><p id="watch-empty" class="muted">Adicione títulos à sua lista.</p></section>
+<section class="about"><h2>CINEMAX-PS4<br><em>Sua tela. Seu catálogo.</em></h2><p>Versão inicial em desenvolvimento. Os títulos exibidos são exemplos de interface, não links de reprodução. Futuras integrações usarão somente fontes legais e autorizadas.</p></section></main>
+<footer><span class="brand small"><span class="brand-mark">C</span>CINEMAX</span><span>Protótipo de desenvolvimento · 2026</span></footer>
+<dialog id="details"><button class="close" aria-label="Fechar">×</button><p class="eyebrow" id="detail-type"></p><h2 id="detail-title"></h2><p id="detail-desc"></p><p class="muted" id="detail-note"></p><button class="btn primary" id="detail-add">＋ Minha lista</button></dialog>
+<script src="js/app.js"></script></body></html>
