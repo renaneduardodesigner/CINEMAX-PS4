@@ -46,7 +46,7 @@ function connectStatus(msg,ok=false){$('#tmdb-status').textContent=msg;$('#tmdb-
 function saveToken(){const token=$('#tmdb-token').value.trim();if(!token){notify('Cole seu token de leitura primeiro.');return}state.token=token;store.set('token',token);api('/configuration').then(()=>{connectStatus('Conectado ao TMDb. Catálogo e pesquisa online ativados.',true);notify('Catálogo conectado!');loadHome();loadGenres('movie');loadGenres('tv')}).catch(e=>{state.token='';store.set('token','');connectStatus(e.message);notify(e.message)})}
 function arrowFocus(e){
  if(!tvMode||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)||$('#detail-dialog').open)return;
- const all=$('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),[tabindex="0"]').filter(x=>x.offsetParent!==null&&!x.hidden);
+ const all=qsa('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),[tabindex="0"]').filter(x=>x.offsetParent!==null&&!x.hidden);
  const el=document.activeElement;
  if(!all.includes(el)){if(all[0]){e.preventDefault();all[0].focus()}return}
  const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
