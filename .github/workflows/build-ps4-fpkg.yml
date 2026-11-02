@@ -72,8 +72,8 @@ jobs:
               test -s IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
               pkg=IV0000-CMAX00001_00-CINEMAXPS4APP000.pkg
               magic=$(od -An -tx1 -N4 "$pkg" | tr -d "[:space:]")
-              test "$magic" = "7f504b47"
-              echo "PKG header OK; bytes: $(wc -c < "$pkg")"
+              test "$magic" = "7f434e54"
+              echo "PKG/CNT header OK; bytes: $(wc -c < "$pkg")"
             '
 
       - name: Publish FPKG artifact
